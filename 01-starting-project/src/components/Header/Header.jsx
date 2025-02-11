@@ -1,4 +1,5 @@
-import reactImg from "../assets/react-core-concepts.png"; //para que funcione el deploy
+import reactImg from "../../assets/react-core-concepts.png"; //para que funcione el deploy
+import "./Header.css"
 
 const reactDescriptions = ["Fundamental", "Crucial", "Core"];
 
