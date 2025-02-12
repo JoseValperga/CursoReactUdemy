@@ -1,7 +1,12 @@
-export const TabButton = ({children}) => {
+export const TabButton = ({ children }) => {
+  
+  const handleClick = () => {
+    console.log("Hizo click");
+  };
+
   return (
     <li>
-      <button>{children}</button>
+      <button onClick={handleClick}>{children}</button>
     </li>
   );
 };
