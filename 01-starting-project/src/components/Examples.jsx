@@ -83,6 +83,7 @@ const Examples = () => {
   return (
     <Section title={"Examples"} id="examples">
       <Tabs
+        buttonsContainer="menu" //ButtonContainer="menu"
         buttons={
           <>
             <TabButton
