@@ -1,13 +1,16 @@
 import { useState } from "react";
+
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 import { WINNING_COMBINATIONS } from "./winning-combinations";
+
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
 ];
+
 const deriveActivePlayer = (gameTurns) => {
   let currentPlayer = "X";
 
@@ -39,21 +42,35 @@ const App = () => {
   for (const turn of gameTurns) {
     const { square, player } = turn;
     const { row, col } = square;
+
     gameBoard[row][col] = player;
   }
+
+  let winner;
+
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = firstSquareSymbol;
+    }
+  }
+  
   const handleSelectSquare = (rowIndex, colIndex) => {
     //utilizamos abajo una forma de actualizar el estado actual con el estado anterior
     //eliminamos la siguiente linea porque eliminarmos el estado activePlayer
     //setActiveState((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     //y lo reemplazamos por un valor derivado
-    for (const combination of WINNING_COMBINATIONS) {
-      const firstSquareSymbol =
-        gameBoard[combination[0].row][combination[0].column];
-      const secondSquareSymbol =
-        gameBoard[combination[1].row][combination[1].column];
-      const thirdSquareSymbol =
-        gameBoard[combination[2].row][combination[2].column];
-    }
+
     //Aquí abajo también actualizamos el estado actual utilizando el estado anterior
     //que en este caso es un array. Este método está indicado por React para arrays
     //NOTA: Las funciones de cambio de estado, en forma automática, pasan
@@ -86,7 +103,8 @@ const App = () => {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard onSelectSquare={handleSelectSquare} board={gameTurns} />
+        {winner && <p>You won, {winner}</p>}
+        <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
     </main>

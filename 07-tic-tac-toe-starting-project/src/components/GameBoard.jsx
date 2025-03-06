@@ -6,6 +6,7 @@ const initialGameBoard = [
 ];
 */
 const GameBoard = ({ onSelectSquare, board }) => {
+  console.log("Estoy en gameboard", board)
   /*
   Ahora vamos a producir un estado derivado (o computado), gameBoard.
   gameBoard se deriva de algún estado -> gameTurns que tenemos en App
@@ -54,7 +55,10 @@ const GameBoard = ({ onSelectSquare, board }) => {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={playerSymbol!== null}>
+                <button
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
